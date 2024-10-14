@@ -9,22 +9,22 @@ using Chapter3Project.Models;
 
 namespace Chapter3Project.Controllers
 {
-    public class SetController : Controller
+    public class ClothingPosesController : Controller
     {
         private readonly SetContext _context;
 
-        public SetController(SetContext context)
+        public ClothingPosesController(SetContext context)
         {
             _context = context;
         }
 
-        // GET: Set
+        // GET: ClothingPoses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.sets.ToListAsync());
+            return View(await _context.CPoses.ToListAsync());
         }
 
-        // GET: Set/Details/5
+        // GET: ClothingPoses/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace Chapter3Project.Controllers
                 return NotFound();
             }
 
-            var @set = await _context.sets
+            var clothingPoses = await _context.ClothingPoses
                 .FirstOrDefaultAsync(m => m.SetId == id);
-            if (@set == null)
+            if (clothingPoses == null)
             {
                 return NotFound();
             }
 
-            return View(@set);
+            return View(clothingPoses);
         }
 
-        // GET: Set/Create
+        // GET: ClothingPoses/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Set/Create
+        // POST: ClothingPoses/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SetName,SmiskiType")] Set @set)
+        public async Task<IActionResult> Create([Bind("Id,SetName,SmiskiType")] ClothingPoses clothingPoses)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(@set);
+                _context.Add(clothingPoses);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(@set);
+            return View(clothingPoses);
         }
 
-        // GET: Set/Edit/5
+        // GET: ClothingPoses/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace Chapter3Project.Controllers
                 return NotFound();
             }
 
-            var @set = await _context.sets.FindAsync(id);
-            if (@set == null)
+            var clothingPoses = await _context.ClothingPoses.FindAsync(id);
+            if (clothingPoses == null)
             {
                 return NotFound();
             }
-            return View(@set);
+            return View(clothingPoses);
         }
 
-        // POST: Set/Edit/5
+        // POST: ClothingPoses/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,SetName,SmiskiType")] Set @set)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,SetName,SmiskiType")] ClothingPoses clothingPoses)
         {
-            if (id != @set.SetId)
+            if (id != clothingPoses.SetId)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace Chapter3Project.Controllers
             {
                 try
                 {
-                    _context.Update(@set);
+                    _context.Update(clothingPoses);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SetExists(@set.SetId))
+                    if (!ClothingPosesExists(clothingPoses.SetId))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace Chapter3Project.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(@set);
+            return View(clothingPoses);
         }
 
-        // GET: Set/Delete/5
+        // GET: ClothingPoses/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -123,34 +123,34 @@ namespace Chapter3Project.Controllers
                 return NotFound();
             }
 
-            var @set = await _context.sets
+            var clothingPoses = await _context.ClothingPoses
                 .FirstOrDefaultAsync(m => m.SetId == id);
-            if (@set == null)
+            if (clothingPoses == null)
             {
                 return NotFound();
             }
 
-            return View(@set);
+            return View(clothingPoses);
         }
 
-        // POST: Set/Delete/5
+        // POST: ClothingPoses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var @set = await _context.sets.FindAsync(id);
-            if (@set != null)
+            var clothingPoses = await _context.ClothingPoses.FindAsync(id);
+            if (clothingPoses != null)
             {
-                _context.sets.Remove(@set);
+                _context.ClothingPoses.Remove(clothingPoses);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SetExists(string id)
+        private bool ClothingPosesExists(string id)
         {
-            return _context.sets.Any(e => e.SetId == id);
+            return _context.ClothingPoses.Any(e => e.SetId == id);
         }
     }
 }

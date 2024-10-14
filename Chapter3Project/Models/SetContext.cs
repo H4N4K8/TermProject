@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Chapter3Project.Models;
 
 namespace Chapter3Project.Models
 {
@@ -7,59 +8,71 @@ namespace Chapter3Project.Models
         public SetContext(DbContextOptions<SetContext> options) : base(options) { }
 
         public DbSet<Set> sets { get; set; } = null!;
+        public DbSet<ClothingPoses> CPoses { get; set; } = null!;
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Set>().HasData(
                  new Set
                  {
-                     Id = "M",
-                     SetName = "Moving",
-                     SmiskiType ="Boxes Smiski"
+                     SetId = "M",
+                     SetName = "Moving"
                  },
                  new Set
                  {
-                     Id = "D",
-                     SetName = "Dressing",
-                     SmiskiType = "Sweater Smiski"
+                     SetId = "D",
+                     SetName = "Dressing"
                  },
                 new Set
                 {
-                    Id = "B",
-                    SetName = "Bath",
-                    SmiskiType = "Shower Smiski"
+                    SetId = "B",
+                    SetName = "Bath"
                 },
                 new Set
                 {
-                    Id = "Y",
-                    SetName = "Yoga",
-                    SmiskiType = "Grounded Smiski"
+                    SetId = "Y",
+                    SetName = "Yoga"
                 },
                 new Set
                 {
-                    Id = "E",
-                    SetName = "Exercise",
-                    SmiskiType = "Sit Ups Smiski"
+                    SetId = "E",
+                    SetName = "Exercise"
                 },
                 new Set
                 {
-                    Id = "C",
-                    SetName = "Cheer",
-                    SmiskiType = "Pom Pom Smiski"
+                    SetId = "C",
+                    SetName = "Cheer"
                 },
                 new Set
                 {
-                    Id = "W",
-                    SetName = "Work",
-                    SmiskiType = "Laptop Smiski"
+                    SetId = "W",
+                    SetName = "Work"
                 },
                 new Set
                 {
-                    Id = "L",
-                    SetName = "Living",
-                    SmiskiType = "Flute Smiski"
+                    SetId = "L",
+                    SetName = "Living"
+                },
+                new ClothingPoses
+                {
+                    Id = 2,
+                    SetId = "D",
+                    SetName = "Dressing",
+                    SmiskiType = "Pants Smiski"
+                },
+                new ClothingPoses
+                {
+                    Id = 1,
+                    SetId = "D",
+                    SetName = "Dressing",
+                    SmiskiType = "Sweater Smiski"
                 }
              );
         }
+        public DbSet<Chapter3Project.Models.ClothingPoses> ClothingPoses { get; set; } = default!;
     }
 }
